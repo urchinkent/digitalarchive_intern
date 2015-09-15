@@ -220,31 +220,32 @@ ThView.prototype.show = function() {
 	window.addEventListener("orientationchange", function(e){
 	});
 
-	///////// SCENE
+	///////// SCENE 空間作成
 	var scene = new THREE.Scene();
 
+
 	///////// CAMERA
-	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height);
-	this.camera.position = new THREE.Vector3(0, 0, 0);
+	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height); 　//縦横比
+	this.camera.position = new THREE.Vector3(0, 0, 0);      //座標や角度
 	this.camera.lookAt(this.cameraDir);
 	this.camera.rotation.order = 'ZXY';
 	scene.add(this.camera);
 
-	///////// LIGHT
+	///////// LIGHT　環境光
 	var light = new THREE.AmbientLight(0xffffff);
 	scene.add(light);
 
-	///////// SPHERE
+	///////// SPHERE　スフィアの大きさ
 	var geometry = new THREE.SphereGeometry(100, 32, 16);
 
-	///////// TEXTURE
+	///////// TEXTURE　テクスチャはりつけ
 	this.texture = new Array(this.file.length);
 	for (var i = 0; i < this.texture.length; i++) {
 		this.texture[i] = THREE.ImageUtils.loadTexture(this.file[i]);
 		this.texture[i].flipY = false;
 	}
 
-	///////// MATERIAL
+	///////// MATERIAL　質感
 	this.material = new THREE.MeshPhongMaterial({
 		side: THREE.DoubleSide,
 		color: 0xffffff, specular: 0xcccccc, shininess:50, ambient: 0xffffff,
@@ -261,7 +262,7 @@ ThView.prototype.show = function() {
 		}, this.interval);
 	}
 
-	///////// MESH
+	///////// MESH　作成したメッシュをシーンに追加
 	this.mesh = new THREE.Mesh(geometry, this.material);
 	if (this.rendererType == 0)
 		this.mesh.rotation.x += Math.PI;
@@ -269,6 +270,12 @@ ThView.prototype.show = function() {
 	this.mesh.rotation.y += this.degree[1];
 	this.mesh.rotation.z += this.degree[2];
 	scene.add(this.mesh);
+
+	var geometry1 = new THREE.SphereGeometry( 1000, 30, 30 );
+	var material1 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+	var sphere = new THREE.Mesh( geometry1, material1 );
+	scene.add( sphere );
+	
 
 	///////// Draw Loop
 	function render() {
