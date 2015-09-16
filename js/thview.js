@@ -221,7 +221,7 @@ ThView.prototype.show = function() {
 	});
 
 	///////// SCENE 空間作成
-	var scene = new THREE.Scene();
+	self.scene = new THREE.Scene();
 
 
 	///////// CAMERA
@@ -229,11 +229,11 @@ ThView.prototype.show = function() {
 	this.camera.position = new THREE.Vector3(0, 0, 0);      //座標や角度
 	this.camera.lookAt(this.cameraDir);
 	this.camera.rotation.order = 'ZXY';
-	scene.add(this.camera);
+	self.scene.add(this.camera);
 
 	///////// LIGHT　環境光
 	var light = new THREE.AmbientLight(0xffffff);
-	scene.add(light);
+	self.scene.add(light);
 
 	///////// SPHERE　スフィアの大きさ
 	var geometry = new THREE.SphereGeometry(100, 32, 16);
@@ -269,12 +269,12 @@ ThView.prototype.show = function() {
 	this.mesh.rotation.x += this.degree[0];
 	this.mesh.rotation.y += this.degree[1];
 	this.mesh.rotation.z += this.degree[2];
-	scene.add(this.mesh);
+	self.scene.add(this.mesh);
 
 	var geometry1 = new THREE.SphereGeometry( 1000, 30, 30 );
 	var material1 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 	var sphere = new THREE.Mesh( geometry1, material1 );
-	scene.add( sphere );
+	self.scene.add( sphere );
 	
 
 	///////// Draw Loop
@@ -286,7 +286,7 @@ ThView.prototype.show = function() {
 				self.sync.mesh.rotation.y += self.speed;
 			}
 		}
-		renderer.render(scene, self.camera);
+		renderer.render(self.scene, self.camera);
 	};
 	render();
 }
