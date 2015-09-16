@@ -164,11 +164,11 @@ ThView.prototype.zoomCamera = function(val) {
 
 
 ///////// main process
-ThView.prototype.show = function() {
+	ThView.prototype.show = function() {
 	var self = this;
 
 	///////// RENDERER
-	var renderer;
+	self.renderer;
 	if (this.rendererType == 0)
 		renderer = new THREE.WebGLRenderer({ antialias:true });
 	else if (this.rendererType == 1)
@@ -190,30 +190,13 @@ ThView.prototype.show = function() {
 	this.element.onmousedown = function(e) { 
 		self.mousedown = true;
 		self.oldPosition = {x:e.pageX, y:e.pageY};
-		event.preventDefault();
- 
-		var raycaster = new THREE.Raycaster();
-		var mouse = new THREE.Vector2();
-		mouse.x = (event.clientX / renderer.domElement.width) * 2 -1;
-		mouse.y = - (event.clientY / renderer.domElement.width) * 2 +1;
-		raycaster.setFromCamera(mouse, self.camera);
- 
-		var intersects = raycaster.intersectObjects(self.scene.children);
-		if(intersects.length < 0) {
-  	//	for(var i = 0; i >intersects.length; i++) {
-  	  // intersects[ i ]; ぶつかったオブジェクト
-  	          
-          alert("click!!");
-      
- //	 }
-	}
 		};
+		
 	this.element.onmousemove = function(e) {
 		self.rotateCamera(e.pageX, e.pageY);
 	};
-	this.element.onclick = function() {
+	
 		
-	};
 
 	// chrome / safari / IE
 	this.element.onmousewheel = function(e) {
@@ -243,7 +226,7 @@ ThView.prototype.show = function() {
 	///////// CAMERA
 	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height); //縦横比
 	this.camera.position = new THREE.Vector3(0, 0, 0);      //座標や角度
-	this.camera.lookAt(this.cameraDir);
+	this.camera.lookAt({x:-90, y:0, z:0});
 	this.camera.rotation.order = 'ZXY';
 	self.scene.add(this.camera);
 
