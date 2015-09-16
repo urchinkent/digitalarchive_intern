@@ -186,17 +186,33 @@ ThView.prototype.show = function() {
 			onmouseupOrg();
 		self.mousedown = false;
 	};
+	
 	this.element.onmousedown = function(e) { 
 		self.mousedown = true;
 		self.oldPosition = {x:e.pageX, y:e.pageY};
-	};
+		event.preventDefault();
+ 
+		var raycaster = new THREE.Raycaster();
+		var mouse = new THREE.Vector2();
+		mouse.x = (event.clientX / renderer.domElement.width) * 2 -1;
+		mouse.y = - (event.clientY / renderer.domElement.width) * 2 +1;
+		raycaster.setFromCamera(mouse, self.camera);
+ 
+		var intersects = raycaster.intersectObjects(self.scene.children);
+		if(intersects.length < 0) {
+  	//	for(var i = 0; i >intersects.length; i++) {
+  	  // intersects[ i ]; ã¶ã¤ã‹ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+  	          
+          alert("click!!");
+      
+ //	 }
+	}
+		};
 	this.element.onmousemove = function(e) {
 		self.rotateCamera(e.pageX, e.pageY);
 	};
 	this.element.onclick = function() {
-		if (!self.moving)
-			self.toggleRotation();
-		self.moving = false;
+		
 	};
 
 	// chrome / safari / IE
@@ -220,32 +236,32 @@ ThView.prototype.show = function() {
 	window.addEventListener("orientationchange", function(e){
 	});
 
-	///////// SCENE ‹óŠÔì¬
+	///////// SCENE ç©ºé–“ä½œæˆ
 	self.scene = new THREE.Scene();
 
 
 	///////// CAMERA
-	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height); @//c‰¡”ä
-	this.camera.position = new THREE.Vector3(0, 0, 0);      //À•W‚âŠp“x
+	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height); //ç¸¦æ¨ªæ¯”
+	this.camera.position = new THREE.Vector3(0, 0, 0);      //åº§æ¨™ã‚„è§’åº¦
 	this.camera.lookAt(this.cameraDir);
 	this.camera.rotation.order = 'ZXY';
 	self.scene.add(this.camera);
 
-	///////// LIGHT@ŠÂ‹«Œõ
+	///////// LIGHTã€€ç’°å¢ƒå…‰
 	var light = new THREE.AmbientLight(0xffffff);
 	self.scene.add(light);
 
-	///////// SPHERE@ƒXƒtƒBƒA‚Ì‘å‚«‚³
+	///////// SPHEREã€€ã‚¹ãƒ•ã‚£ã‚¢ã®å¤§ãã•
 	var geometry = new THREE.SphereGeometry(100, 32, 16);
 
-	///////// TEXTURE@ƒeƒNƒXƒ`ƒƒ‚Í‚è‚Â‚¯
+	///////// TEXTUREã€€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ã‚Šã¤ã‘
 	this.texture = new Array(this.file.length);
 	for (var i = 0; i < this.texture.length; i++) {
 		this.texture[i] = THREE.ImageUtils.loadTexture(this.file[i]);
 		this.texture[i].flipY = false;
 	}
 
-	///////// MATERIAL@¿Š´
+	///////// MATERIALã€€è³ªæ„Ÿ
 	this.material = new THREE.MeshPhongMaterial({
 		side: THREE.DoubleSide,
 		color: 0xffffff, specular: 0xcccccc, shininess:50, ambient: 0xffffff,
@@ -262,7 +278,7 @@ ThView.prototype.show = function() {
 		}, this.interval);
 	}
 
-	///////// MESH@ì¬‚µ‚½ƒƒbƒVƒ…‚ğƒV[ƒ“‚É’Ç‰Á
+	///////// MESHã€€ä½œæˆã—ãŸãƒ¡ãƒƒã‚·ãƒ¥ã‚’ã‚·ãƒ¼ãƒ³ã«è¿½åŠ 
 	this.mesh = new THREE.Mesh(geometry, this.material);
 	if (this.rendererType == 0)
 		this.mesh.rotation.x += Math.PI;
@@ -271,10 +287,9 @@ ThView.prototype.show = function() {
 	this.mesh.rotation.z += this.degree[2];
 	self.scene.add(this.mesh);
 
-	var geometry1 = new THREE.SphereGeometry( 1000, 30, 30 );
-	var material1 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
-	var sphere = new THREE.Mesh( geometry1, material1 );
-	self.scene.add( sphere );
+// mouse
+
+
 	
 
 	///////// Draw Loop

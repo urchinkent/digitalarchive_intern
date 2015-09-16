@@ -14,7 +14,7 @@
     
 	var img1 = new ThView({
         	id:'ph1',
-        	file:'a.jpg',
+        	file:'equirectangular.jpg',
         	width:800,
         	height:400,
 	
@@ -23,8 +23,13 @@
 	var geometry1 = new THREE.SphereGeometry( 3, 30, 30 );
 	var material1 = new THREE.MeshBasicMaterial( {color: 0x7fff00} );
 	var sphere = new THREE.Mesh( geometry1, material1 );
-	sphere.position.set(60,0,0);	
-	img1.scene.add( sphere );		      
+	sphere.position.set(60,0,0);
+	img1.scene.add( sphere );		
+	
+	
+
+
+	
 	
 </script>
 
