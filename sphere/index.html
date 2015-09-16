@@ -28,7 +28,7 @@
 	img1.scene.add( sphere );		
 	
 	
-	  targetList.push(sphere);
+	targetList.push(sphere);
 	
 	
 	img1.element.onclick = function(e) {
@@ -36,15 +36,22 @@
 	e.preventDefault();
 
 	var raycaster = new THREE.Raycaster();
+	
+	var rect = e.target.getBoundingClientRect();    
 	var mouse = new THREE.Vector2();
-		mouse.x =   (e.clientX / renderer.domElement.width) * 2 -1;
-		mouse.y = - (e.clientY / renderer.domElement.width) * 2 +1;
+       
+        mouse.x =  e.clientX - rect.left;
+        mouse.y =  e.clientY - rect.top;
+        
+
+		mouse.x =   (mouse.x / renderer.domElement.width) * 2 -1;
+		mouse.y = - (mouse.y / renderer.domElement.height) * 2 +1;
 		raycaster.setFromCamera(mouse, img1.camera);
  
-		var intersects = raycaster.intersectObjects(targetList );
+		var intersects = raycaster.intersectObjects(targetList);
 		if(intersects.length >0) {
   	   	          
-          alert("click!!");
+          window.location.href = "http://www.ricoh.co.jp/";
 		}
 	};
 	
