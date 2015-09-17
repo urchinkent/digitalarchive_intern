@@ -226,7 +226,7 @@ ThView.prototype.zoomCamera = function(val) {
 	///////// CAMERA
 	this.camera = new THREE.PerspectiveCamera(this.zoom, this.width / this.height); //縦横比
 	this.camera.position = new THREE.Vector3(0, 0, 0);      //座標や角度
-	this.camera.lookAt({x:-90, y:0, z:0});
+	this.camera.lookAt({x:5, y:0, z:0});
 	this.camera.rotation.order = 'ZXY';
 	self.scene.add(this.camera);
 
