@@ -17,7 +17,7 @@
         	file:'equirectangular.jpg',
         	width:800,
         	height:400,
-	
+			firstview:150,
 			      });
 	img1.cameraDir.x = 0;
 	img1.cameraDir.y = 0;
@@ -27,7 +27,7 @@
 	var geometry1 = new THREE.SphereGeometry( 8, 30, 30 );
 	var material1 = new THREE.MeshBasicMaterial({color: 0x7fff00});
 	var sphere = new THREE.Mesh( geometry1, material1 );
-	sphere.position.set(-30,0,-60);
+	sphere.position.set(-30,0,-52);
 	
 	
 	img1.scene.add( sphere );		
