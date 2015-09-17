@@ -37,14 +37,11 @@
 	e.preventDefault();
 
 	var raycaster = new THREE.Raycaster();
-	
 	var rect = e.target.getBoundingClientRect();    
 	var mouse = new THREE.Vector2();
        
         mouse.x =  e.clientX - rect.left;
         mouse.y =  e.clientY - rect.top;
-        
-
 		mouse.x =   (mouse.x / renderer.domElement.width) * 2 -1;
 		mouse.y = - (mouse.y / renderer.domElement.height) * 2 +1;
 		raycaster.setFromCamera(mouse, img1.camera);
@@ -55,6 +52,30 @@
           window.location.href = "../hunsui/index.html";
 		}
 	};
+
+	img1.element.onmouseover = function(e) {
+	
+	e.preventDefault();
+
+	var raycaster = new THREE.Raycaster();
+	var rect = e.target.getBoundingClientRect();    
+	var mouse = new THREE.Vector2();
+       
+        mouse.x =  e.clientX - rect.left;
+        mouse.y =  e.clientY - rect.top;
+		mouse.x =   (mouse.x / renderer.domElement.width) * 2 -1;
+		mouse.y = - (mouse.y / renderer.domElement.height) * 2 +1;
+		raycaster.setFromCamera(mouse, img1.camera);
+ 
+		var intersects = raycaster.intersectObjects(targetList);
+		if(intersects.length >0) {
+  	   	          
+          window.location.href = "../hunsui/index.html";
+		}
+	};
+
+
+
 	
 	
 </script>

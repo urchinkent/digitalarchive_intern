@@ -19,6 +19,9 @@
         	height:400,
 	
 			      });
+	img1.cameraDir.x = 0;
+	img1.cameraDir.y = 0;
+	img1.cameraDir.z = 0;
 	
 	var targetList = []; 		      
 	var geometry1 = new THREE.SphereGeometry( 8, 30, 30 );
@@ -26,7 +29,7 @@
 	var sphere = new THREE.Mesh( geometry1, material1 );
 	sphere.position.set(-30,0,-60);
 	
-	img1.camera.lookAt({x:-40, y:0, z:-90});
+	
 	img1.scene.add( sphere );		
 	
 	
